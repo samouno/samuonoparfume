@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parfum Homme | Parfum Store</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="index.html">
+                <img src="image/logooo.jpeg.jpeg" alt="Parfum Store Logo">
+            </a>
+        </div>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="index.html#collection">Collection</a></li>
+                <li><a href="index.html#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="cart-header">
+        <div class="container" style="width: 100%; display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto;">
+            <span class="cart-title">Panier</span>
+            <span class="cart-total">Total: <span id="totalPrice">0</span> dh</span>
+        </div>
+    </div>
+
+    <main style="padding-top: 20px;">
+        <section>
+            <h2 class="section-title">Parfum Homme</h2>
+            
+            <div class="perfume-selector">
+                <!-- List from user input -->
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Amber nomade"> Amber nomade</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Amber elixer"> Amber elixer</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Allure chanel sport"> Allure chanel sport</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Armani code"> Armani code</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Bacarat rouge"> Bacarat rouge</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Boss hugo"> Boss hugo</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Boss bottled"> Boss bottled</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Black xs lexess"> Black xs lexess</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Bleu chanel"> Bleu chanel</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Bois argent"> Bois argent</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Chrome azaro"> Chrome azaro</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Sanad (سند)"> Sanad (سند)</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Stranger with you"> Stranger with you</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="You intensly"> You intensly</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Invictus"> Invictus</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="King"> King</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Azaro wanted"> Azaro wanted</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Declaration cartier"> Declaration cartier</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Diesel for life"> Diesel for life</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Versace Eros"> Versace Eros</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="La coste bleu"> La coste bleu</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="La coste blanc"> La coste blanc</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="La coste noir"> La coste noir</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="La coste rouge"> La coste rouge</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="La coste essentiel"> La coste essentiel</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Le beau jpg"> Le beau jpg</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Le male"> Le male</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="One million"> One million</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="One million lucky"> One million lucky</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Le male elixer"> Le male elixer</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Layton"> Layton</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="L’homme ysl"> L’homme ysl</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Le gendre mont blanc"> Le gendre mont blanc</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="L’homme ideal"> L’homme ideal</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="L’homme intense"> L’homme intense</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="La nuit de l’homme"> La nuit de l’homme</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Pi givenc"> Pi givenc</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Space bomb"> Space bomb</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Scandal homme"> Scandal homme</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Sauvage"> Sauvage</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Tobacco vanille"> Tobacco vanille</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Terre d’hermess"> Terre d’hermess</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="212 Vip"> 212 Vip</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Valentino imo"> Valentino imo</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="خُمرة"> خُمرة</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="خُمرة قهوة"> خُمرة قهوة</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="imperial valy"> imperial valy</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Hudson"> Hudson</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Tomford noir"> Tomford noir</label>
+                <label class="perfume-item"><input type="checkbox" class="perfume-check" value="Ultra male"> Ultra male</label>
+            </div>
+
+            <div class="manual-order-section">
+                <h3 style="margin-bottom: 1rem;">Saisir vos choix manuellement (max 4)</h3>
+                <div class="order-inputs">
+                    <input type="text" class="manual-perfume" placeholder="Parfum 1">
+                    <input type="text" class="manual-perfume" placeholder="Parfum 2">
+                    <input type="text" class="manual-perfume" placeholder="Parfum 3">
+                    <input type="text" class="manual-perfume" placeholder="Parfum 4">
+                </div>
+                <button class="btn" id="commanderBtn" style="width: 100%;">Commander</button>
+            </div>
+        </section>
+    </main>
+
+    <!-- Modal Form -->
+    <div id="orderModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h3 style="margin-bottom: 1.5rem; text-align: center;">Valider votre commande</h3>
+            <p id="orderSummaryText" style="margin-bottom: 1rem; text-align: center; font-size: 0.9rem;"></p>
+            <form id="orderForm">
+                <div class="form-group">
+                    <label>Prénom</label>
+                    <input type="text" id="prenom" required>
+                </div>
+                <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" id="nom" required>
+                </div>
+                <div class="form-group">
+                    <label>Ville</label>
+                    <input type="text" id="ville" required>
+                </div>
+                <div class="form-group">
+                    <label>Adresse</label>
+                    <input type="text" id="adresse" required>
+                </div>
+                <div class="form-group">
+                    <label>Téléphone</label>
+                    <input type="tel" id="telephone" required>
+                </div>
+                <button type="submit" class="btn" style="width: 100%;">Valider commande</button>
+            </form>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Parfum Store - Tous droits réservés</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
+
