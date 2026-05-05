@@ -94,7 +94,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Homme & Femme Pages Logic (Cart & Pricing) ---
     const checkboxes = document.querySelectorAll('.perfume-check');
-    const manualInputs = document.querySelectorAll('.manual-perfume');
     const totalPriceElement = document.getElementById('totalPrice');
     const commanderBtn = document.getElementById('commanderBtn');
 
@@ -113,14 +112,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         let selectedCount = 0;
         const allCheckboxes = document.querySelectorAll('.perfume-check');
-        const allManualInputs = document.querySelectorAll('.manual-perfume');
 
         allCheckboxes.forEach(cb => {
             if (cb.checked) selectedCount++;
-        });
-
-        allManualInputs.forEach(input => {
-            if (input.value.trim() !== '') selectedCount++;
         });
 
         const total = calculatePrice(selectedCount);
@@ -134,25 +128,9 @@ document.addEventListener('DOMContentLoaded', () => {
         checkboxes.forEach(cb => {
             cb.addEventListener('change', () => {
                 let checkedCount = Array.from(checkboxes).filter(c => c.checked).length;
-                let manualCount = Array.from(manualInputs).filter(i => i.value.trim() !== '').length;
                 
-                if (checkedCount + manualCount > 4) {
+                if (checkedCount > 4) {
                     cb.checked = false;
-                    alert("Vous pouvez choisir jusqu'à 4 parfums maximum pour cette offre.");
-                }
-                updateTotal();
-            });
-        });
-    }
-
-    if (manualInputs.length > 0) {
-        manualInputs.forEach(input => {
-            input.addEventListener('input', () => {
-                let checkedCount = Array.from(checkboxes).filter(c => c.checked).length;
-                let manualCount = Array.from(manualInputs).filter(i => i.value.trim() !== '').length;
-
-                if (checkedCount + manualCount > 4) {
-                    input.value = '';
                     alert("Vous pouvez choisir jusqu'à 4 parfums maximum pour cette offre.");
                 }
                 updateTotal();
@@ -165,9 +143,6 @@ document.addEventListener('DOMContentLoaded', () => {
             let selectedPerfumes = [];
             checkboxes.forEach(cb => {
                 if (cb.checked) selectedPerfumes.push(cb.value);
-            });
-            manualInputs.forEach(input => {
-                if (input.value.trim() !== '') selectedPerfumes.push(input.value.trim());
             });
 
             if (selectedPerfumes.length === 0) {
@@ -188,6 +163,14 @@ document.addEventListener('DOMContentLoaded', () => {
     if (orderForm) {
         orderForm.addEventListener('submit', (e) => {
             e.preventDefault();
+            
+            const submitBtn = orderForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.innerText;
+            submitBtn.innerText = "Envoi en cours...";
+            submitBtn.disabled = true;
+
+            const sheetUrl = "https://script.google.com/macros/s/AKfycby0bTRI7hQTsa3ZhHBZU6ji0oxuIxIhj-kunF-u_8dmTypE8Ax2c0v-D6ke1fNCJpcMCw/exec";
+
             const formData = {
                 prenom: document.getElementById('prenom').value,
                 nom: document.getElementById('nom').value,
@@ -196,50 +179,72 @@ document.addEventListener('DOMContentLoaded', () => {
                 telephone: document.getElementById('telephone').value,
             };
 
-            // Get selected products and total
-            let productsInfo = "";
-            let totalInfo = "0";
-
-            if (selectedProductText && selectedProductText.innerText.includes("Décants choisis :")) {
-                // For decants.html
-                productsInfo = selectedProductText.innerText;
-            } else if (selectedProductText && selectedProductText.innerText.includes("Produit :")) {
-                // Fallback for old decants logic if needed
-                productsInfo = selectedProductText.innerText;
-            } else if (orderSummaryText && orderSummaryText.innerText.includes("Votre sélection :")) {
-                // For homme.html or femme.html
-                productsInfo = orderSummaryText.innerText;
+            // Récupérer les parfums sélectionnés au moment de la soumission
+            let perfumes = [];
+            
+            // On récupère toutes les cases cochées
+            const checkedBoxes = document.querySelectorAll('.perfume-check:checked');
+            if (checkedBoxes.length > 0) {
+                checkedBoxes.forEach(cb => {
+                    perfumes.push(cb.value);
+                });
+            } else if (selectedDecants && selectedDecants.length > 0) {
+                // Fallback pour les décants si besoin
+                perfumes = selectedDecants.map(d => d.name);
             }
 
-            // WhatsApp Integration
-            const phoneNumber = "212714844721";
-            const message = `*Nouvelle Commande - Parfum Store*%0A%0A` +
-                            `*Client :* ${formData.prenom} ${formData.nom}%0A` +
-                            `*Ville :* ${formData.ville}%0A` +
-                            `*Adresse :* ${formData.adresse}%0A` +
-                            `*Téléphone :* ${formData.telephone}%0A%0A` +
-                            `*Détails :*%0A${productsInfo}`;
+            // Préparer les données pour Google Sheet
+            const data = {
+                "1ere parfum": perfumes[0] || "",
+                "2ere parfum": perfumes[1] || "",
+                "3ere parfum": perfumes[2] || "",
+                "4ere parfum": perfumes[3] || "",
+                "parfum1": perfumes[0] || "",
+                "parfum2": perfumes[1] || "",
+                "parfum3": perfumes[2] || "",
+                "parfum4": perfumes[3] || "",
+                "prenom": formData.prenom,
+                "nom": formData.nom,
+                "telephone": formData.telephone,
+                "adresse": formData.adresse,
+                "ville": formData.ville
+            };
 
-            const whatsappUrl = `https://wa.me/${phoneNumber}?text=${message}`;
-
-            // Open WhatsApp
-            window.open(whatsappUrl, '_blank');
-
-            alert(`Merci ${formData.prenom} ! Votre commande a été préparée. Vous allez être redirigé vers WhatsApp pour la valider.`);
-            
-            orderForm.reset();
-            closeModal();
-            
-            // Reset UI
-            selectedDecants = [];
-            decantAddBtns.forEach(btn => {
-                btn.innerText = "Ajouter";
-                btn.style.backgroundColor = "";
+            // Envoi vers Google Sheet avec un format plus compatible
+            fetch(sheetUrl, {
+                method: "POST",
+                mode: "no-cors",
+                cache: "no-cache",
+                headers: {
+                    "Content-Type": "text/plain;charset=utf-8",
+                },
+                body: JSON.stringify(data)
+            })
+            .then(() => {
+                alert(`✅ Commande enregistrée !\nClient: ${formData.prenom}\nParfums: ${perfumes.join(', ')}`);
+                
+                orderForm.reset();
+                closeModal();
+                
+                // Reset UI
+                selectedDecants = [];
+                const decantBtns = document.querySelectorAll('.decant-add-btn');
+                decantBtns.forEach(btn => {
+                    btn.innerText = "Ajouter";
+                    btn.style.backgroundColor = "";
+                });
+                checkboxes.forEach(cb => cb.checked = false);
+                updateTotal();
+                updateDecantTotal();
+            })
+            .catch(err => {
+                console.error(err);
+                alert("❌ Erreur lors de l'envoi de la commande. Veuillez réessayer.");
+            })
+            .finally(() => {
+                submitBtn.innerText = originalBtnText;
+                submitBtn.disabled = false;
             });
-            checkboxes.forEach(cb => cb.checked = false);
-            manualInputs.forEach(input => input.value = '');
-            updateTotal();
-            updateDecantTotal();
         });
     }
 
